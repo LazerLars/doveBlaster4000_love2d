@@ -4,6 +4,7 @@ local weapon = {}
 
 function weapon.load()
     -- Weapon initialization logic
+    shotgun = love.graphics.newImage('sprites/shotgun.png')
 end
 
 function weapon.update(dt)
@@ -11,6 +12,7 @@ function weapon.update(dt)
 end
 
 function weapon.draw()
+    love.graphics.draw(shotgun, 0, 0)
     -- Weapon drawing logic
 end
 
