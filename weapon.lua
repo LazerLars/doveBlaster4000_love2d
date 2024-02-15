@@ -81,8 +81,20 @@ function weapon.pointGunToCursor()
     end
     barrelOffsetX = math.floor(barrelOffsetX)
 
-    shotgun.bulletSpawnX = barrelPointX
-    shotgun.bulletSpawnY = barrelPointY
+    --bullet spawn point needs to be adjusted
+    --if our sprite is normal placed
+    if flip < 0 then
+        barrelPointX = weaponX + rotatedBarrelOffsetX * -flip -- Adjust for flipping    
+        shotgun.bulletSpawnX = barrelPointX -4
+        shotgun.bulletSpawnY = barrelPointY +1
+    --if our sprite is flipped vertically
+    elseif flip > 0 then
+        barrelPointX = weaponX + rotatedBarrelOffsetX * flip -- Adjust for flipping
+        shotgun.bulletSpawnX = barrelPointX -1
+        shotgun.bulletSpawnY = barrelPointY - 3
+    end
+    
+    
     --------------------------------
     --------------------------------
 
