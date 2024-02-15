@@ -18,7 +18,7 @@ function player.update(dt)
 
     if player.timer >= 1.0 then
         --event.publish("playerCollision")
-        print('1 sec has passed...')
+        --print('1 sec has passed...')
         player.timer = 0
     end
     --counter based

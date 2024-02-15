@@ -4,6 +4,7 @@ local player = require "player"
 local enemy = require "enemy"
 local weapon = require "weapon"
 local event = require "event"
+local colors = require "UtillityFunctions.colors"
 
 local gameManager = {
     score = 0
@@ -14,6 +15,9 @@ function gameManager.load()
     player.load()
     enemy.load()
     weapon.load()
+    --print(colors.ColorPalette_pico8Micro('green'))
+    --colors.ColorPalette_pico8Micro('green')
+    love.graphics.setBackgroundColor(0, 212/255, 59/255)
     --subscribe to a event. the function is called every time a playerCollision is published
     --even though this is placed in the load function, if you move this to the update function is can be called 900-1000 times for each published event.
     --so keep events subscribtion in the load function 
@@ -46,7 +50,7 @@ end
 
 function gameManager.incrementScore()
     gameManager.score = gameManager.score + 1
-    print("Score: " .. gameManager.score)
+    --print("Score: " .. gameManager.score)
 end
 
 return gameManager

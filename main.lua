@@ -5,12 +5,13 @@ local maid64 = require "maid64"
 local gameManager = require "gameManager"
 local sceenWidth = 128
 local screnHeight = 128
+local scaleMuliplier = 5
 
 
 function love.load()
     x = 0
     --optional settings for window
-    love.window.setMode(sceenWidth*3, screnHeight*3, {resizable=true, vsync=false, minwidth=200, minheight=200})
+    love.window.setMode(sceenWidth*scaleMuliplier, screnHeight*scaleMuliplier, {resizable=true, vsync=false, minwidth=200, minheight=200})
     love.graphics.setDefaultFilter("nearest", "nearest")
     --initilizing maid64 for use and set to 64x64 mode 
     --can take 2 parameters x and y if needed for example maid64.setup(64,32)
