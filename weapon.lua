@@ -4,6 +4,8 @@ local weapon = {}
 
 local shotgun = {}
 
+local bullet = {}
+
 --we need maid64 to get the mouse position in the right scaled format 
 local maid64 = require "maid64"
 
@@ -17,6 +19,11 @@ function weapon.load()
         bulletSpawnX = 0,
         bulletSpawnY = 0,
     }
+
+    bullet = {
+        x = 0,
+        y = 0
+    }
 end
 
 function weapon.update(dt)
@@ -27,6 +34,9 @@ function weapon.draw()
     --love.graphics.draw(shotgun, 90, 128-16)
     -- Weapon drawing logic
     weapon.pointGunToCursor()
+
+    love.graphics.rectangle('fill', bullet.x, bullet.y, 4, 4)
+    
 end
 
 function weapon.pointGunToCursor()
@@ -72,7 +82,7 @@ function weapon.pointGunToCursor()
     barrelOffsetX = math.floor(barrelOffsetX)
 
     shotgun.bulletSpawnX = barrelPointX
-    shotgun.bulletSpawnY = barrelOffsetY
+    shotgun.bulletSpawnY = barrelPointY
     --------------------------------
     --------------------------------
 
@@ -87,6 +97,8 @@ end
 function  love.keypressed(key)
     if key == 'space' then
         print('FIRE in the HOLE ' .. shotgun.bulletSpawnX .. "," .. shotgun.bulletSpawnY)
+        bullet.x = shotgun.bulletSpawnX
+        bullet.y = shotgun.bulletSpawnY
     end
 	-- if key == 'p' then
 	-- 	gunPos = gunPosRight
