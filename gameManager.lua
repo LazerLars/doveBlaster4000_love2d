@@ -5,6 +5,7 @@ local enemy = require "enemy"
 local weapon = require "weapon"
 local event = require "event"
 local colors = require "UtillityFunctions.colors"
+local inputManager = require "inputManager"
 
 local gameManager = {
     score = 0
@@ -15,6 +16,7 @@ function gameManager.load()
     player.load()
     enemy.load()
     weapon.load()
+    inputManager.load()
     --print(colors.ColorPalette_pico8Micro('green'))
     --colors.ColorPalette_pico8Micro('green')
     love.graphics.setBackgroundColor(0, 212/255, 59/255)
@@ -31,6 +33,7 @@ function gameManager.update(dt)
     player.update(dt)
     enemy.update(dt)
     weapon.update(dt)
+    inputManager.update(dt)
 
       -- Game manager update logic
     
@@ -41,6 +44,7 @@ function gameManager.draw()
     player.draw()
     enemy.draw()
     weapon.draw()
+    inputManager.draw()
     -- Additional game manager drawing logic if needed
 end
 

@@ -1,18 +1,24 @@
 -- weapon.lua
 local weapon = {}
 
-local shotgun = {}
+--local shotgun = {}
 
-local bulletList = {}
+--local bulletList = {}
+local spr_bullet, spr_shellMagazine, spr_gunShell
 
 --we need maid64 to get the mouse position in the right scaled format 
 local maid64 = require "maid64"
 
 function weapon.load()
     -- Weapon initialization logic
+    weapon.shotgun = {}
+    weapon.bulletList = {}
     -- shotgun = love.graphics.newImage('sprites/shotgun_8x8.png')
     -- bulletSpawnX = 
     spr_bullet = love.graphics.newImage('sprites/bullet1_8x8.png')
+    spr_shellMagazine = love.graphics.newImage('sprites/shell1.png')
+    spr_gunShell = love.graphics.newImage('sprites/shell3_small.png')
+    
     shotgun = {
         spr_shotgun = love.graphics.newImage('sprites/shotgun_8x8.png'),
         bulletSpawnX = 0,
@@ -34,6 +40,11 @@ function weapon.draw()
 
     --love.graphics.rectangle('fill', bullet.x, bullet.y, 4, 4)
     weapon.drawBullet()
+    
+    --draw shells
+    love.graphics.draw(spr_gunShell, 90, 102,0,1,1)
+    love.graphics.draw(spr_shellMagazine, 105, 102,0,2,2)
+    love.graphics.draw(spr_shellMagazine, 105, 110,0,2,2)
     
 end
 
@@ -100,16 +111,23 @@ function weapon.pointGunToCursor()
     love.graphics.draw(shotgun.spr_shotgun, weaponX, weaponY, math.rad(angleDegrees), 1, flip, 0, 0)
 end
 
-function  love.keypressed(key)
-    if key == 'space' then
-        print('FIRE in the HOLE ' .. shotgun.bulletSpawnX .. "," .. shotgun.bulletSpawnY)
-        --bullet.x = shotgun.bulletSpawnX
-        --bullet.y = shotgun.bulletSpawnY
-        weapon.addBullet(shotgun.bulletSpawnX, shotgun.bulletSpawnY, 0)
-    end
-end
+-- function  love.keypressed(key)
+--     if key == 'space' then
+--         print('FIRE in the HOLE ' .. shotgun.bulletSpawnX .. "," .. shotgun.bulletSpawnY)
+--         --bullet.x = shotgun.bulletSpawnX
+--         --bullet.y = shotgun.bulletSpawnY
+--         weapon.addBullet(shotgun.bulletSpawnX, shotgun.bulletSpawnY, 0)
+--     end
+--     if key == 'q' then
+--         print('adding enemy...')
+--         --bullet.x = shotgun.bulletSpawnX
+--         --bullet.y = shotgun.bulletSpawnY
+--         --enemy.create(math.random(10, 120), math.random(10, 90))
+--     end
+-- end
 
-function weapon.addBullet(spawnX, spawnY)
+function weapon.addBullet()
+    local spawnX, spawnY = shotgun.bulletSpawnX, shotgun.bulletSpawnY
     local angleRadians = math.atan2(mouseY - spawnY, mouseX - spawnX)
     --local angleDegrees = math.floor(math.deg(angleRadians))
     local angleDegrees = math.deg(angleRadians)
@@ -126,12 +144,12 @@ function weapon.addBullet(spawnX, spawnY)
         angleDegrees = angleDegrees,
         speed = 100
     }
-    table.insert(bulletList, bullet)
+    table.insert(weapon.bulletList, bullet)
     --print('adding bullet, new length: ' .. #bulletList)
 end
 
 function weapon.moveBullet(dt)
-    for index, bullet in ipairs(bulletList) do
+    for index, bullet in ipairs(weapon.bulletList) do
         local dx = math.cos(bullet.angleRadians) * bullet.speed * dt -- Multiply by dt for frame independence
         local dy = math.sin(bullet.angleRadians) * bullet.speed * dt
 
@@ -141,20 +159,20 @@ function weapon.moveBullet(dt)
         -- If bullet is out of bounds, remove it
         if bullet.x < 0 or bullet.x > love.graphics.getWidth() or
            bullet.y < 0 or bullet.y > love.graphics.getHeight() then
-            table.remove(bulletList, index)
-            print('removing bullet, out of bounds')
+            table.remove(weapon.bulletList, index)
+            --print('removing bullet, out of bounds')
         end
     end
 end
 
 
 function weapon.drawBullet()
-    print(#bulletList)
+    --print(#weapon.bulletList)
     -- for index, bullet in ipairs(bulletList) do
     --     print(bullet.x)
     -- end
     --if #bulletList > 0 then
-        for index, bullet in ipairs(bulletList) do
+        for index, bullet in ipairs(weapon.bulletList) do
             --print('bullet numb: ' .. index .. ' bullet xY: ' .. bullet.x .. ',' .. bullet.y)
             --print(bullet.x)
             --print(bullet.y)
