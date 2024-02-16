@@ -1,10 +1,9 @@
 -- weapon.lua
-
 local weapon = {}
 
 local shotgun = {}
 
-local bullet = {}
+local bulletList = {}
 
 --we need maid64 to get the mouse position in the right scaled format 
 local maid64 = require "maid64"
@@ -20,14 +19,12 @@ function weapon.load()
         bulletSpawnY = 0,
     }
 
-    bullet = {
-        x = 0,
-        y = 0
-    }
 end
 
 function weapon.update(dt)
     -- Weapon update logic
+
+    weapon.moveBullet(dt)
 end
 
 function weapon.draw()
@@ -35,12 +32,12 @@ function weapon.draw()
     -- Weapon drawing logic
     weapon.pointGunToCursor()
 
-    love.graphics.rectangle('fill', bullet.x, bullet.y, 4, 4)
+    --love.graphics.rectangle('fill', bullet.x, bullet.y, 4, 4)
+    weapon.drawBullet()
     
 end
 
 function weapon.pointGunToCursor()
-    local mouseX, mouseY = maid64.mouse.getPosition()
     --placement of gun
     local weaponX, weaponY = 64, 128 - 8 -- Adjust these values based on your weapon's position
     --used for determine if we need to flip the gun vertically
@@ -109,33 +106,67 @@ end
 function  love.keypressed(key)
     if key == 'space' then
         print('FIRE in the HOLE ' .. shotgun.bulletSpawnX .. "," .. shotgun.bulletSpawnY)
-        bullet.x = shotgun.bulletSpawnX
-        bullet.y = shotgun.bulletSpawnY
+        --bullet.x = shotgun.bulletSpawnX
+        --bullet.y = shotgun.bulletSpawnY
+        weapon.addBullet(shotgun.bulletSpawnX, shotgun.bulletSpawnY, 0)
     end
-	-- if key == 'p' then
-	-- 	gunPos = gunPosRight
-	-- 	local bullet = Bullet(bulletSpeed, 'right')
-	-- 	table.insert(bulletsList, bullet)
-	-- 	triggerScreenShake('right', 0.05)
-	-- end
-	-- if key == 'w' then
-	-- 	gunPos = gunPosLeft
-	-- 	local bullet = Bullet(bulletSpeed, 'left')
-	-- 	table.insert(bulletsList, bullet)
-	-- 	love.graphics.setBackgroundColor(255/255,119/255,168/255)
-	-- 	triggerScreenShake('left', 0.05)
-	-- end
-	-- if key == 'e' then
-	-- 	print('spawn enemy left')
-	-- 	local enemy = Enemy('left', 60)
-	-- 	table.insert(enemyList, enemy)
-	-- end
-	-- if key == 'o' then
-	-- 	print('spawn enemy right')
-	-- 	local enemy = Enemy('right', 50)
-	-- 	table.insert(enemyList, enemy)
-	-- end
 end
+
+function weapon.addBullet(spawnX, spawnY)
+    local angleRadians = math.atan2(mouseY - spawnY, mouseX - spawnX)
+    local angleDegrees = math.floor(math.deg(angleRadians)) 
+    print (angleDegrees)
+    local random = math.random(-1, -3)
+    angleDegrees = angleDegrees + random
+    local bullet = {
+        x = spawnX,
+        y = spawnY,
+        angleRadians = angleRadians,
+        --degrees because thats what we like
+        angleDegrees = angleDegrees,
+        speed = 500
+    }
+    table.insert(bulletList, bullet)
+    --print('adding bullet, new length: ' .. #bulletList)
+end
+
+function weapon.moveBullet(dt)
+    for index, bullet in ipairs(bulletList) do
+        local dx = math.cos(bullet.angleRadians) * bullet.speed * dt -- Multiply by dt for frame independence
+        local dy = math.sin(bullet.angleRadians) * bullet.speed * dt
+
+        bullet.x = bullet.x + dx
+        bullet.y = bullet.y + dy
+
+        -- If bullet is out of bounds, remove it
+        if bullet.x < 0 or bullet.x > love.graphics.getWidth() or
+           bullet.y < 0 or bullet.y > love.graphics.getHeight() then
+            table.remove(bulletList, index)
+            print('removing bullet, out of bounds')
+        end
+    end
+end
+
+
+function weapon.drawBullet()
+    print(#bulletList)
+    -- for index, bullet in ipairs(bulletList) do
+    --     print(bullet.x)
+    -- end
+    --if #bulletList > 0 then
+        for index, bullet in ipairs(bulletList) do
+            --print('bullet numb: ' .. index .. ' bullet xY: ' .. bullet.x .. ',' .. bullet.y)
+            --print(bullet.x)
+            --print(bullet.y)
+            love.graphics.rectangle('fill', bullet.x, bullet.y, 4,4)
+            
+        end    
+    --end
+    
+end
+
+
+
 
 return weapon
 

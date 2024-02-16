@@ -6,9 +6,12 @@ local gameManager = require "gameManager"
 local sceenWidth = 128
 local screnHeight = 128
 local scaleMuliplier = 5
+--mouse pos should be accecable in all files
+mouseX, mouseY = 0,0
 
 
 function love.load()
+    
     x = 0
     --optional settings for window
     love.window.setMode(sceenWidth*scaleMuliplier, screnHeight*scaleMuliplier, {resizable=true, vsync=false, minwidth=200, minheight=200})
@@ -16,8 +19,8 @@ function love.load()
     --initilizing maid64 for use and set to 64x64 mode 
     --can take 2 parameters x and y if needed for example maid64.setup(64,32)
     maid64.setup(sceenWidth, screnHeight)
-
-    --font = love.graphics.newFont('fonts/pico-8-mono.ttf', 12)
+    
+    --font = love.graphics.newFont('fonts/pico-8-mono.ttf', 4)
     font = love.graphics.newFont('fonts/PressStart2P-Regular.ttf', 8)
     --font:setFilter('nearest', 'nearest')
 
@@ -27,6 +30,8 @@ function love.load()
 end
 
 function love.update(dt)
+    --set mouse position at all times
+    mouseX, mouseY = maid64.mouse.getPosition()
     x = x + 1
     --print('test' .. x)
     gameManager.update(dt)
@@ -51,3 +56,8 @@ function love.resize(w, h)
     -- this is used to resize the screen correctly
     maid64.resize(w, h)
 end
+
+function myFunc()
+    print('yeah boy')
+end
+
