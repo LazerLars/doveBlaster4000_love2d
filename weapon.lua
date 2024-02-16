@@ -6,6 +6,8 @@ local shotgun = {}
 
 local bullet = {}
 
+local bulletList = {}
+
 --we need maid64 to get the mouse position in the right scaled format 
 local maid64 = require "maid64"
 
@@ -20,10 +22,6 @@ function weapon.load()
         bulletSpawnY = 0,
     }
 
-    bullet = {
-        x = 0,
-        y = 0
-    }
 end
 
 function weapon.update(dt)
@@ -35,7 +33,8 @@ function weapon.draw()
     -- Weapon drawing logic
     weapon.pointGunToCursor()
 
-    love.graphics.rectangle('fill', bullet.x, bullet.y, 4, 4)
+    --love.graphics.rectangle('fill', bullet.x, bullet.y, 4, 4)
+    weapon.drawBullet()
     
 end
 
@@ -109,8 +108,9 @@ end
 function  love.keypressed(key)
     if key == 'space' then
         print('FIRE in the HOLE ' .. shotgun.bulletSpawnX .. "," .. shotgun.bulletSpawnY)
-        bullet.x = shotgun.bulletSpawnX
-        bullet.y = shotgun.bulletSpawnY
+        --bullet.x = shotgun.bulletSpawnX
+        --bullet.y = shotgun.bulletSpawnY
+        weapon.addBullet(shotgun.bulletSpawnX, shotgun.bulletSpawnY, 0)
     end
 	-- if key == 'p' then
 	-- 	gunPos = gunPosRight
@@ -136,6 +136,40 @@ function  love.keypressed(key)
 	-- 	table.insert(enemyList, enemy)
 	-- end
 end
+
+function weapon.addBullet(spawnX, spawnY, angle)
+    print('bulletlist: ' .. #bulletList)
+    local bullet = {
+        x = spawnX,
+        y = spawnY,
+        angle = 0,
+        speed = 300
+    }
+    table.insert(bulletList, bullet)
+    print('adding bullet, new length: ' .. #bulletList)
+end
+
+function weapon.moveBullet()
+
+end
+
+function weapon.drawBullet()
+    print(#bulletList)
+    -- for index, bullet in ipairs(bulletList) do
+    --     print(bullet.x)
+    -- end
+    --if #bulletList > 0 then
+        for index, bullet in ipairs(bulletList) do
+            print('bullet numb: ' .. index .. ' bullet xY: ' .. bullet.x .. ',' .. bullet.y)
+            print(bullet.x)
+            print(bullet.y)
+            love.graphics.rectangle('fill', bullet.x, bullet.y, 4,4)
+            
+        end    
+    --end
+    
+end
+
 
 return weapon
 
