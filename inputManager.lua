@@ -1,6 +1,7 @@
 local inputManager = {}
 
 local weapon = require "weapon"
+local enemy = require "enemy"
 
 function inputManager.load()
 
@@ -21,6 +22,7 @@ function  love.keypressed(key)
     end
     if key == 'q' then
         print('adding enemy...')
+        enemy.create(math.random(10, 120), math.random(10, 90))
         --bullet.x = shotgun.bulletSpawnX
         --bullet.y = shotgun.bulletSpawnY
         --enemy.create(math.random(10, 120), math.random(10, 90))

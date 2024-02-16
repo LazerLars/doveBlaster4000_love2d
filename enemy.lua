@@ -25,8 +25,10 @@ function enemy.create(x, y)
 end
 
 function enemy.update(dt)
-    for _, e in ipairs(enemy.list) do
+    for _, enemy in ipairs(enemy.list) do
         -- Enemy update logic
+        enemy.x = enemy.x + 0.1 + dt
+        --qe.y = e.y + 0.1 + dt
     end
 end
 
@@ -37,13 +39,5 @@ function enemy.draw()
     end
 end
 
-function  love.keypressed(key)
-    if key == 'q' then
-        print('adding enemy...')
-        --bullet.x = shotgun.bulletSpawnX
-        --bullet.y = shotgun.bulletSpawnY
-        enemy.create(math.random(10, 120), math.random(10, 90))
-    end
-end
 
 return enemy
