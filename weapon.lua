@@ -11,7 +11,7 @@ local maid64 = require "maid64"
 
 function weapon.load()
     -- Weapon initialization logic
-    weapon.shotgun = {}
+    --weapon.shotgun = {}
     weapon.bulletList = {}
     -- shotgun = love.graphics.newImage('sprites/shotgun_8x8.png')
     -- bulletSpawnX = 
@@ -19,7 +19,7 @@ function weapon.load()
     spr_shellMagazine = love.graphics.newImage('sprites/shell1.png')
     spr_gunShell = love.graphics.newImage('sprites/shell3_small.png')
     
-    shotgun = {
+    weapon.shotgun = {
         spr_shotgun = love.graphics.newImage('sprites/shotgun_8x8.png'),
         bulletSpawnX = 0,
         bulletSpawnY = 0,
@@ -92,13 +92,13 @@ function weapon.pointGunToCursor()
     --if our sprite is normal placed
     if flip < 0 then
         barrelPointX = weaponX + rotatedBarrelOffsetX * -flip -- Adjust for flipping    
-        shotgun.bulletSpawnX = barrelPointX -4
-        shotgun.bulletSpawnY = barrelPointY +1
+        weapon.shotgun.bulletSpawnX = barrelPointX -4
+        weapon.shotgun.bulletSpawnY = barrelPointY +1
     --if our sprite is flipped vertically
     elseif flip > 0 then
         barrelPointX = weaponX + rotatedBarrelOffsetX * flip -- Adjust for flipping
-        shotgun.bulletSpawnX = barrelPointX -1
-        shotgun.bulletSpawnY = barrelPointY - 3
+        weapon.shotgun.bulletSpawnX = barrelPointX -1
+        weapon.shotgun.bulletSpawnY = barrelPointY - 3
     end
     --------------------------------
     --------------------------------
@@ -108,7 +108,7 @@ function weapon.pointGunToCursor()
     --love.graphics.print('Degrees: ' .. angleDegrees, 0, 9)
 
     -- Draw the sprite with appropriate flipping
-    love.graphics.draw(shotgun.spr_shotgun, weaponX, weaponY, math.rad(angleDegrees), 1, flip, 0, 0)
+    love.graphics.draw(weapon.shotgun.spr_shotgun, weaponX, weaponY, math.rad(angleDegrees), 1, flip, 0, 0)
 end
 
 -- function  love.keypressed(key)
@@ -127,7 +127,7 @@ end
 -- end
 
 function weapon.addBullet()
-    local spawnX, spawnY = shotgun.bulletSpawnX, shotgun.bulletSpawnY
+    local spawnX, spawnY = weapon.shotgun.bulletSpawnX, weapon.shotgun.bulletSpawnY
     local angleRadians = math.atan2(mouseY - spawnY, mouseX - spawnX)
     --local angleDegrees = math.floor(math.deg(angleRadians))
     local angleDegrees = math.deg(angleRadians)
