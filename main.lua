@@ -9,6 +9,8 @@ local scaleMuliplier = 5
 --mouse pos should be accecable in all files
 mouseX, mouseY = 0,0
 
+local spr_crosshair
+
 
 function love.load()
     
@@ -16,6 +18,10 @@ function love.load()
     --optional settings for window
     love.window.setMode(sceenWidth*scaleMuliplier, screnHeight*scaleMuliplier, {resizable=true, vsync=false, minwidth=200, minheight=200})
     love.graphics.setDefaultFilter("nearest", "nearest")
+
+    --disable os mousecursor
+    love.mouse.setVisible(false)
+    spr_crosshair = love.graphics.newImage('sprites/crosshair8.png')
     --initilizing maid64 for use and set to 64x64 mode 
     --can take 2 parameters x and y if needed for example maid64.setup(64,32)
     maid64.setup(sceenWidth, screnHeight)
@@ -43,7 +49,8 @@ function love.draw()
     --draw images here
     
     --can also draw shapes and get mouse position
-    love.graphics.circle("fill", maid64.mouse.getX(),  maid64.mouse.getY(), 2)
+    --love.graphics.circle("fill", maid64.mouse.getX(),  maid64.mouse.getY(), 2)
+    love.graphics.draw(spr_crosshair,mouseX-2, mouseY-2)
     --draw x,y cordinates on scren, nice for dev.
     love.graphics.print(maid64.mouse.getX() .. ',' ..  maid64.mouse.getY(), sceenWidth-(8*7),1)
     gameManager.draw()

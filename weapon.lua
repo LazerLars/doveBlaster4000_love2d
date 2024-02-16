@@ -12,7 +12,7 @@ function weapon.load()
     -- Weapon initialization logic
     -- shotgun = love.graphics.newImage('sprites/shotgun_8x8.png')
     -- bulletSpawnX = 
-    spr_bullet = love.graphics.newImage('sprites/bullet3_8x8.png')
+    spr_bullet = love.graphics.newImage('sprites/bullet1_8x8.png')
     shotgun = {
         spr_shotgun = love.graphics.newImage('sprites/shotgun_8x8.png'),
         bulletSpawnX = 0,
@@ -60,7 +60,6 @@ function weapon.pointGunToCursor()
     --degrees because thats what we like
     local angleDegrees = math.floor(math.deg(angleRadians))
 
-    
     --------------------------------
     -- Calculate the point where the barrel is in the world now
     --this will be the bullet spawnPoint
@@ -90,14 +89,12 @@ function weapon.pointGunToCursor()
         shotgun.bulletSpawnX = barrelPointX -1
         shotgun.bulletSpawnY = barrelPointY - 3
     end
-    
-    
     --------------------------------
     --------------------------------
 
     -- Print the current coordinates of the barrel
-    love.graphics.print('bum: ' .. math.floor(barrelPointX) .. "," .. math.floor(barrelPointY) , 0, 17)
-    love.graphics.print('Degrees: ' .. angleDegrees, 0, 9)
+    --love.graphics.print('bum: ' .. math.floor(barrelPointX) .. "," .. math.floor(barrelPointY) , 0, 17)
+    --love.graphics.print('Degrees: ' .. angleDegrees, 0, 9)
 
     -- Draw the sprite with appropriate flipping
     love.graphics.draw(shotgun.spr_shotgun, weaponX, weaponY, math.rad(angleDegrees), 1, flip, 0, 0)
@@ -114,17 +111,20 @@ end
 
 function weapon.addBullet(spawnX, spawnY)
     local angleRadians = math.atan2(mouseY - spawnY, mouseX - spawnX)
-    local angleDegrees = math.floor(math.deg(angleRadians)) 
-    print (angleDegrees)
-    local random = math.random(-1, -3)
+    --local angleDegrees = math.floor(math.deg(angleRadians))
+    local angleDegrees = math.deg(angleRadians)
+    --print (angleDegrees)
+    --lets add some recoil to the bullets
+    local random = math.random(-1, -4)
     angleDegrees = angleDegrees + random
+    --angleRadians = math.rad(angleDegrees)
     local bullet = {
         x = spawnX,
         y = spawnY,
         angleRadians = angleRadians,
         --degrees because thats what we like
         angleDegrees = angleDegrees,
-        speed = 500
+        speed = 100
     }
     table.insert(bulletList, bullet)
     --print('adding bullet, new length: ' .. #bulletList)
