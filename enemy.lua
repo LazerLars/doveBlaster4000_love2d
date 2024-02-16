@@ -25,10 +25,20 @@ function enemy.create(x, y)
 end
 
 function enemy.update(dt)
-    for _, enemy in ipairs(enemy.list) do
-        -- Enemy update logic
-        enemy.x = enemy.x + 0.1 + dt
-        --qe.y = e.y + 0.1 + dt
+    --we are looping through it in reverse order, since the remove enemy from list part was causing a issue where the code exploded.
+    for index = #enemy.list, 1, -1 do
+        local enemyInstance = enemy.list[index]
+        local fallSpeed = 50
+        local moveSpeed = 100
+        -- Update enemy logic
+        enemyInstance.x = enemyInstance.x + moveSpeed * dt
+        enemyInstance.y = enemyInstance.y + fallSpeed * dt
+
+        -- Remove enemy if out of bounds
+        if enemyInstance.x < 0 or enemyInstance.x > 128 then
+            table.remove(enemy.list, index)
+            print('Removing clayDove at index ' .. index)
+        end
     end
 end
 
