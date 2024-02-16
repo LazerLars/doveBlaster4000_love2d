@@ -12,7 +12,7 @@ function weapon.load()
     -- Weapon initialization logic
     -- shotgun = love.graphics.newImage('sprites/shotgun_8x8.png')
     -- bulletSpawnX = 
-
+    spr_bullet = love.graphics.newImage('sprites/bullet3_8x8.png')
     shotgun = {
         spr_shotgun = love.graphics.newImage('sprites/shotgun_8x8.png'),
         bulletSpawnX = 0,
@@ -158,7 +158,9 @@ function weapon.drawBullet()
             --print('bullet numb: ' .. index .. ' bullet xY: ' .. bullet.x .. ',' .. bullet.y)
             --print(bullet.x)
             --print(bullet.y)
-            love.graphics.rectangle('fill', bullet.x, bullet.y, 4,4)
+            --love.graphics.rectangle('fill', bullet.x, bullet.y, 4,4)
+            love.graphics.draw(spr_bullet,bullet.x, bullet.y)
+            --love.graphics.draw(drawable,x,y,r,sx,sy,ox,oy)
             
         end    
     --end
