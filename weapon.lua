@@ -1,19 +1,25 @@
 -- weapon.lua
 local weapon = {}
 
-local shotgun = {}
+--local shotgun = {}
 
-local bulletList = {}
+--local bulletList = {}
+local spr_bullet, spr_shellMagazine, spr_gunShell
 
 --we need maid64 to get the mouse position in the right scaled format 
 local maid64 = require "maid64"
 
 function weapon.load()
     -- Weapon initialization logic
+    --weapon.shotgun = {}
+    weapon.bulletList = {}
     -- shotgun = love.graphics.newImage('sprites/shotgun_8x8.png')
     -- bulletSpawnX = 
-    spr_bullet = love.graphics.newImage('sprites/bullet3_8x8.png')
-    shotgun = {
+    spr_bullet = love.graphics.newImage('sprites/bullet1_8x8.png')
+    spr_shellMagazine = love.graphics.newImage('sprites/shell1.png')
+    spr_gunShell = love.graphics.newImage('sprites/shell3_small.png')
+    
+    weapon.shotgun = {
         spr_shotgun = love.graphics.newImage('sprites/shotgun_8x8.png'),
         bulletSpawnX = 0,
         bulletSpawnY = 0,
@@ -34,6 +40,11 @@ function weapon.draw()
 
     --love.graphics.rectangle('fill', bullet.x, bullet.y, 4, 4)
     weapon.drawBullet()
+    
+    --draw shells
+    love.graphics.draw(spr_gunShell, 90, 102,0,1,1)
+    love.graphics.draw(spr_shellMagazine, 105, 102,0,2,2)
+    love.graphics.draw(spr_shellMagazine, 105, 110,0,2,2)
     
 end
 
@@ -60,7 +71,6 @@ function weapon.pointGunToCursor()
     --degrees because thats what we like
     local angleDegrees = math.floor(math.deg(angleRadians))
 
-    
     --------------------------------
     -- Calculate the point where the barrel is in the world now
     --this will be the bullet spawnPoint
@@ -82,56 +92,64 @@ function weapon.pointGunToCursor()
     --if our sprite is normal placed
     if flip < 0 then
         barrelPointX = weaponX + rotatedBarrelOffsetX * -flip -- Adjust for flipping    
-        shotgun.bulletSpawnX = barrelPointX -4
-        shotgun.bulletSpawnY = barrelPointY +1
+        weapon.shotgun.bulletSpawnX = barrelPointX -4
+        weapon.shotgun.bulletSpawnY = barrelPointY +1
     --if our sprite is flipped vertically
     elseif flip > 0 then
         barrelPointX = weaponX + rotatedBarrelOffsetX * flip -- Adjust for flipping
-        shotgun.bulletSpawnX = barrelPointX -1
-        shotgun.bulletSpawnY = barrelPointY - 3
+        weapon.shotgun.bulletSpawnX = barrelPointX -1
+        weapon.shotgun.bulletSpawnY = barrelPointY - 3
     end
-    
-    
     --------------------------------
     --------------------------------
 
     -- Print the current coordinates of the barrel
-    love.graphics.print('bum: ' .. math.floor(barrelPointX) .. "," .. math.floor(barrelPointY) , 0, 17)
-    love.graphics.print('Degrees: ' .. angleDegrees, 0, 9)
+    --love.graphics.print('bum: ' .. math.floor(barrelPointX) .. "," .. math.floor(barrelPointY) , 0, 17)
+    --love.graphics.print('Degrees: ' .. angleDegrees, 0, 9)
 
     -- Draw the sprite with appropriate flipping
-    love.graphics.draw(shotgun.spr_shotgun, weaponX, weaponY, math.rad(angleDegrees), 1, flip, 0, 0)
+    love.graphics.draw(weapon.shotgun.spr_shotgun, weaponX, weaponY, math.rad(angleDegrees), 1, flip, 0, 0)
 end
 
-function  love.keypressed(key)
-    if key == 'space' then
-        print('FIRE in the HOLE ' .. shotgun.bulletSpawnX .. "," .. shotgun.bulletSpawnY)
-        --bullet.x = shotgun.bulletSpawnX
-        --bullet.y = shotgun.bulletSpawnY
-        weapon.addBullet(shotgun.bulletSpawnX, shotgun.bulletSpawnY, 0)
-    end
-end
+-- function  love.keypressed(key)
+--     if key == 'space' then
+--         print('FIRE in the HOLE ' .. shotgun.bulletSpawnX .. "," .. shotgun.bulletSpawnY)
+--         --bullet.x = shotgun.bulletSpawnX
+--         --bullet.y = shotgun.bulletSpawnY
+--         weapon.addBullet(shotgun.bulletSpawnX, shotgun.bulletSpawnY, 0)
+--     end
+--     if key == 'q' then
+--         print('adding enemy...')
+--         --bullet.x = shotgun.bulletSpawnX
+--         --bullet.y = shotgun.bulletSpawnY
+--         --enemy.create(math.random(10, 120), math.random(10, 90))
+--     end
+-- end
 
-function weapon.addBullet(spawnX, spawnY)
+function weapon.addBullet()
+    local spawnX, spawnY = weapon.shotgun.bulletSpawnX, weapon.shotgun.bulletSpawnY
     local angleRadians = math.atan2(mouseY - spawnY, mouseX - spawnX)
-    local angleDegrees = math.floor(math.deg(angleRadians)) 
-    print (angleDegrees)
-    local random = math.random(-1, -3)
+    --local angleDegrees = math.floor(math.deg(angleRadians))
+    local angleDegrees = math.deg(angleRadians)
+    --print (angleDegrees)
+    --lets add some recoil to the bullets
+    local random = math.random(-1, -4)
     angleDegrees = angleDegrees + random
+    --angleRadians = math.rad(angleDegrees)
     local bullet = {
         x = spawnX,
         y = spawnY,
         angleRadians = angleRadians,
         --degrees because thats what we like
         angleDegrees = angleDegrees,
-        speed = 500
+        speed = 100
     }
-    table.insert(bulletList, bullet)
+    table.insert(weapon.bulletList, bullet)
     --print('adding bullet, new length: ' .. #bulletList)
 end
 
 function weapon.moveBullet(dt)
-    for index, bullet in ipairs(bulletList) do
+    for index, bullet in ipairs(weapon.bulletList) do
         local dx = math.cos(bullet.angleRadians) * bullet.speed * dt -- Multiply by dt for frame independence
         local dy = math.sin(bullet.angleRadians) * bullet.speed * dt
 
@@ -139,9 +157,9 @@ function weapon.moveBullet(dt)
         bullet.y = bullet.y + dy
 
         -- If bullet is out of bounds, remove it
-        if bullet.x < 0 or bullet.x > love.graphics.getWidth() or
-           bullet.y < 0 or bullet.y > love.graphics.getHeight() then
-            table.remove(bulletList, index)
+        if bullet.x < 0 or bullet.x > screenWidth or
+           bullet.y < 0 or bullet.y > screenHeight then
+            table.remove(weapon.bulletList, index)
             print('removing bullet, out of bounds')
         end
     end
@@ -149,12 +167,12 @@ end
 
 
 function weapon.drawBullet()
-    print(#bulletList)
+    --print(#weapon.bulletList)
     -- for index, bullet in ipairs(bulletList) do
     --     print(bullet.x)
     -- end
     --if #bulletList > 0 then
-        for index, bullet in ipairs(bulletList) do
+        for index, bullet in ipairs(weapon.bulletList) do
             --print('bullet numb: ' .. index .. ' bullet xY: ' .. bullet.x .. ',' .. bullet.y)
             --print(bullet.x)
             --print(bullet.y)
