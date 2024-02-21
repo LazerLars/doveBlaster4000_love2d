@@ -142,7 +142,10 @@ function weapon.addBullet()
         angleRadians = angleRadians,
         --degrees because thats what we like
         angleDegrees = angleDegrees,
-        speed = 100
+        speed = 100,
+        w = 5,
+        h = 3
+
     }
     table.insert(weapon.bulletList, bullet)
     --print('adding bullet, new length: ' .. #bulletList)
