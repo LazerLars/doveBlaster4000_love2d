@@ -20,7 +20,7 @@ function weapon.load()
     spr_gunShell = love.graphics.newImage('sprites/shells/shell3_small.png')
     
     weapon.shotgun = {
-        spr_shotgun = love.graphics.newImage('sprites/guns/shotgun_8x8.png'),
+        spr_shotgun = love.graphics.newImage('sprites/guns/shotgun2_8x8.png'),
         bulletSpawnX = 0,
         bulletSpawnY = 0,
     }
@@ -142,7 +142,7 @@ function weapon.addBullet()
         angleRadians = angleRadians,
         --degrees because thats what we like
         angleDegrees = angleDegrees,
-        speed = 100,
+        speed = 800,
         w = 5,
         h = 3
 

@@ -27,7 +27,7 @@ function enemy.create(x, y)
 end
 
 function enemy.update(dt)
-    enemy.moveDove(dt, true)
+    enemy.moveDove(dt, false)
 end
 
 function enemy.remove(index)
