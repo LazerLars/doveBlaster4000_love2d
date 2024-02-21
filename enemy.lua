@@ -42,12 +42,12 @@ function enemy.moveDove(dt)
         dove.x = dove.x + moveSpeed * dt
         dove.y = dove.y + fallSpeed * dt
 
-       enemy.removeDovesOutOfScreen(dove, doveIndex)
+       enemy.removeDovesOutOfScreenOnXaxis(dove, doveIndex)
 
     end
 end
 
-function enemy.removeDovesOutOfScreen(dove, doveIndex)
+function enemy.removeDovesOutOfScreenOnXaxis(dove, doveIndex)
      -- Remove enemy if out of bounds
      --we only look at the x axis since we want to allow dove to go out of y and come backinto the screen
      if dove.x < 0 or dove.x > 128 then
