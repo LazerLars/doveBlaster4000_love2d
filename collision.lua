@@ -4,16 +4,13 @@ local collision = {}
 
 local weapon = require "weapon"
 local enemy = require "enemy"
+local event = require "event"
 
 function collision.checkForCollisionBulletAndEnemy()
-    obj1List = weapon.bulletList
-    obj2List = enemy.list
 
-    for bulletIndex, bullet in ipairs(obj1List) do
-        --print('bullet ' .. bulletIndex .. ' xy = ' .. bullet.x .. ',' .. bullet.y)
-        for doveIndex, dove in ipairs(obj2List) do
-            --print('dove ' .. doveIndex .. ' xy = ' .. dove.x .. ',' .. dove.y)
-            --correct this so i check for a collision here.. both bullet aand dove have x,y and w and h proptery
+    --loop through all bullets and see if it hits a enemy
+    for bulletIndex, bullet in ipairs(weapon.bulletList) do
+        for doveIndex, dove in ipairs(enemy.list) do
              -- Check for collision based on x, y, width, and height
              if bullet.x < dove.x + dove.w and -- Right edge of bullet is to the left of the right edge of dove
              bullet.x + bullet.w > dove.x and -- Left edge of bullet is to the right of the left edge of dove
@@ -22,6 +19,8 @@ function collision.checkForCollisionBulletAndEnemy()
               print('bulletIndex: ' .. bulletIndex .. 'collides with doveIndex: ' .. doveIndex)
               enemy.remove(doveIndex)
               weapon.removeBullet(bulletIndex)
+              --increase score
+              event.publish('increaseScore', 100)
             end
         end
     end

@@ -24,8 +24,9 @@ function gameManager.load()
     --subscribe to a event. the function is called every time a playerCollision is published
     --even though this is placed in the load function, if you move this to the update function is can be called 900-1000 times for each published event.
     --so keep events subscribtion in the load function 
-    event.subscribe("playerCollision", function()
-        gameManager.incrementScore()
+    event.subscribe("increaseScore", function(score)
+        gameManager.incrementScore(score)
+        --gameManager.incrementScore()
     end)
     -- Additional game manager initialization if needed
 end
@@ -58,9 +59,16 @@ function gameManager.spawnEnemy(x, y)
     enemy.create(x, y)
 end
 
-function gameManager.incrementScore()
-    gameManager.score = gameManager.score + 1
+function gameManager.incrementScore(scoreIncrement)
+    --if no scoreIncrement is added, then we just want to add 1
+    if scoreIncrement == nill then
+        gameManager.score = gameManager.score + 1
+    else
+        gameManager.score = gameManager.score + scoreIncrement
+    end
+    
     --print("Score: " .. gameManager.score)
 end
+
 
 return gameManager

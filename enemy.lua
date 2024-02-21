@@ -27,23 +27,26 @@ function enemy.create(x, y)
 end
 
 function enemy.update(dt)
-    enemy.moveDove(dt)
+    enemy.moveDove(dt, true)
 end
 
 function enemy.remove(index)
     table.remove(enemy.list, index)
 end
 
-function enemy.moveDove(dt)
+function enemy.moveDove(dt, static)
     for doveIndex, dove in ipairs(enemy.list) do
         local fallSpeed = 50
         local moveSpeed = 100
+        if static == true then
+            fallSpeed = 0
+            moveSpeed = 0
+        end
         -- Update enemy logic
         dove.x = dove.x + moveSpeed * dt
         dove.y = dove.y + fallSpeed * dt
 
        enemy.removeDovesOutOfScreenOnXaxis(dove, doveIndex)
-
     end
 end
 
