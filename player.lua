@@ -31,7 +31,7 @@ function player.update(dt)
     
     -- Player update logic
     for _, e in ipairs(enemy.list) do
-        if collision.check(player, e) then
+        if collision.checkForCollisionBulletAndEnemy(player, e) then
             event.publish("playerCollision")
             -- Handle collision between player and enemy if needed
         end

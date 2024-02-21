@@ -47,6 +47,10 @@ function gameManager.draw()
     enemy.draw()
     weapon.draw()
     inputManager.draw()
+    
+    colors.ColorPalette_pico8Micro('yellow')
+    love.graphics.print(gameManager.score, 50,20)
+    colors.ColorPalette_pico8Micro('white')
     -- Additional game manager drawing logic if needed
 end
 
