@@ -21,8 +21,8 @@ function collision.check()
              bullet.x + bullet.w > dove.x and -- Left edge of bullet is to the right of the left edge of dove
              bullet.y < dove.y + dove.h and -- Bottom edge of bullet is above the top edge of dove
              bullet.y + bullet.h > dove.y then -- Top edge of bullet is below the bottom edge of dove
-              print('collision!!!')
-              print('collision!!!')
+              print('bulletIndex: ' .. bulletIndex .. 'collides with doveIndex: ' .. doveIndex)
+              enemy.remove(doveIndex)
             end
           
             -- if math.abs(dove.x - bullet.x) < 0.5 * (dove.w + bullet.w) and 

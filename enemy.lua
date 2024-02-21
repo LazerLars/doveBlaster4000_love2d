@@ -44,6 +44,11 @@ function enemy.update(dt)
     end
 end
 
+function enemy.remove(index)
+    table.remove(enemy.list, index)
+end
+
+
 function enemy.draw()
     for _, e in ipairs(enemy.list) do
         -- Enemy drawing logic
