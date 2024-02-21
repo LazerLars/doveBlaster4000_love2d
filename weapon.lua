@@ -163,15 +163,19 @@ function weapon.moveBullet(dt)
         bullet.x = bullet.x + dx
         bullet.y = bullet.y + dy
 
-        -- If bullet is out of bounds, remove it
-        if bullet.x < 0 or bullet.x > screenWidth or
+        weapon.removeBulletOutOfScreen(bullet, bulletIndex)
+    end
+end
+
+function weapon.removeBulletOutOfScreen(bullet, bulletIndex)
+    if bullet.x < 0 or bullet.x > screenWidth or
            bullet.y < 0 or bullet.y > screenHeight then
             --table.remove(weapon.bulletList, index)
             weapon.removeBullet(bulletIndex)
             print('removing bullet, out of bounds. bulletIndex: ' .. bulletIndex)
         end
-    end
 end
+
 
 
 function weapon.drawBullet()
