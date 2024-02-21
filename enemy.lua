@@ -42,15 +42,20 @@ function enemy.moveDove(dt)
         dove.x = dove.x + moveSpeed * dt
         dove.y = dove.y + fallSpeed * dt
 
-        -- Remove enemy if out of bounds
-        if dove.x < 0 or dove.x > 128 then
-            --table.remove(enemy.list, index)
-            enemy.remove(doveIndex)
-            print('Removing clayDove exited screen. Doveindex: ' .. doveIndex)
-        end
+       enemy.removeDovesOutOfScreen(dove, doveIndex)
+
     end
 end
 
+function enemy.removeDovesOutOfScreen(dove, doveIndex)
+     -- Remove enemy if out of bounds
+     --we only look at the x axis since we want to allow dove to go out of y and come backinto the screen
+     if dove.x < 0 or dove.x > 128 then
+        --table.remove(enemy.list, index)
+        enemy.remove(doveIndex)
+        print('Removing clayDove exited screen. Doveindex: ' .. doveIndex)
+    end
+end
 
 
 function enemy.draw()
