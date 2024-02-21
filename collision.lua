@@ -23,6 +23,7 @@ function collision.check()
              bullet.y + bullet.h > dove.y then -- Top edge of bullet is below the bottom edge of dove
               print('bulletIndex: ' .. bulletIndex .. 'collides with doveIndex: ' .. doveIndex)
               enemy.remove(doveIndex)
+              weapon.removeBullet(bulletIndex)
             end
           
             -- if math.abs(dove.x - bullet.x) < 0.5 * (dove.w + bullet.w) and 

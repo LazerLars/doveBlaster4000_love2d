@@ -151,6 +151,10 @@ function weapon.addBullet()
     --print('adding bullet, new length: ' .. #bulletList)
 end
 
+function weapon.removeBullet(index)
+    table.remove(weapon.bulletList, index)
+end
+
 function weapon.moveBullet(dt)
     for index, bullet in ipairs(weapon.bulletList) do
         local dx = math.cos(bullet.angleRadians) * bullet.speed * dt -- Multiply by dt for frame independence
