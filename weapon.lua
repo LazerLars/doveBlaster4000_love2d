@@ -15,12 +15,12 @@ function weapon.load()
     weapon.bulletList = {}
     -- shotgun = love.graphics.newImage('sprites/shotgun_8x8.png')
     -- bulletSpawnX = 
-    spr_bullet = love.graphics.newImage('sprites/bullet1_8x8.png')
-    spr_shellMagazine = love.graphics.newImage('sprites/shell1.png')
-    spr_gunShell = love.graphics.newImage('sprites/shell3_small.png')
+    spr_bullet = love.graphics.newImage('sprites/bullets/bullet1_8x8.png')
+    spr_shellMagazine = love.graphics.newImage('sprites/shells/shell1.png')
+    spr_gunShell = love.graphics.newImage('sprites/shells/shell3_small.png')
     
     weapon.shotgun = {
-        spr_shotgun = love.graphics.newImage('sprites/shotgun_8x8.png'),
+        spr_shotgun = love.graphics.newImage('sprites/guns/shotgun_8x8.png'),
         bulletSpawnX = 0,
         bulletSpawnY = 0,
     }

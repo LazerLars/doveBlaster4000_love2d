@@ -17,7 +17,7 @@ function enemy.create(x, y)
     local newEnemy = {
         x = x,
         y = y,
-        sprite = love.graphics.newImage('sprites/clayDove.png')
+        sprite = love.graphics.newImage('sprites/enemies/clayDove.png')
         -- Additional enemy properties and initialization
     }
     table.insert(enemy.list, newEnemy)
