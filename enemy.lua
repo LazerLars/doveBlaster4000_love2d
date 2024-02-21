@@ -27,22 +27,39 @@ function enemy.create(x, y)
 end
 
 function enemy.update(dt)
-    --we are looping through it in reverse order, since the remove enemy from list part was causing a issue where the code exploded.
-    for index = #enemy.list, 1, -1 do
-        local enemyInstance = enemy.list[index]
-        local fallSpeed = 0--50
-        local moveSpeed = 0--100
-        -- Update enemy logic
-        enemyInstance.x = enemyInstance.x + moveSpeed * dt
-        enemyInstance.y = enemyInstance.y + fallSpeed * dt
+    enemy.moveDove(dt, false)
+end
 
-        -- Remove enemy if out of bounds
-        if enemyInstance.x < 0 or enemyInstance.x > 128 then
-            table.remove(enemy.list, index)
-            print('Removing clayDove at index ' .. index)
+function enemy.remove(index)
+    table.remove(enemy.list, index)
+end
+
+function enemy.moveDove(dt, static)
+    for doveIndex, dove in ipairs(enemy.list) do
+        local fallSpeed = 50
+        local moveSpeed = 100
+        if static == true then
+            fallSpeed = 0
+            moveSpeed = 0
         end
+        -- Update enemy logic
+        dove.x = dove.x + moveSpeed * dt
+        dove.y = dove.y + fallSpeed * dt
+
+       enemy.removeDovesOutOfScreenOnXaxis(dove, doveIndex)
     end
 end
+
+function enemy.removeDovesOutOfScreenOnXaxis(dove, doveIndex)
+     -- Remove enemy if out of bounds
+     --we only look at the x axis since we want to allow dove to go out of y and come backinto the screen
+     if dove.x < 0 or dove.x > 128 then
+        --table.remove(enemy.list, index)
+        enemy.remove(doveIndex)
+        print('Removing clayDove exited screen. Doveindex: ' .. doveIndex)
+    end
+end
+
 
 function enemy.draw()
     for _, e in ipairs(enemy.list) do
