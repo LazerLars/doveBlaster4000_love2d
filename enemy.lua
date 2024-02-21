@@ -17,7 +17,9 @@ function enemy.create(x, y)
     local newEnemy = {
         x = x,
         y = y,
-        sprite = love.graphics.newImage('sprites/clayDove.png')
+        sprite = love.graphics.newImage('sprites/enemies/clayDove.png'),
+        w = 5,
+        h = 3
         -- Additional enemy properties and initialization
     }
     table.insert(enemy.list, newEnemy)
@@ -28,8 +30,8 @@ function enemy.update(dt)
     --we are looping through it in reverse order, since the remove enemy from list part was causing a issue where the code exploded.
     for index = #enemy.list, 1, -1 do
         local enemyInstance = enemy.list[index]
-        local fallSpeed = 50
-        local moveSpeed = 100
+        local fallSpeed = 0--50
+        local moveSpeed = 0--100
         -- Update enemy logic
         enemyInstance.x = enemyInstance.x + moveSpeed * dt
         enemyInstance.y = enemyInstance.y + fallSpeed * dt

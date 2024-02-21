@@ -21,7 +21,7 @@ function love.load()
 
     --disable os mousecursor
     love.mouse.setVisible(false)
-    spr_crosshair = love.graphics.newImage('sprites/crosshair8.png')
+    spr_crosshair = love.graphics.newImage('sprites/crosshair/crosshair8.png')
     --initilizing maid64 for use and set to 64x64 mode 
     --can take 2 parameters x and y if needed for example maid64.setup(64,32)
     maid64.setup(screenWidth, screenHeight)

@@ -6,6 +6,7 @@ local weapon = require "weapon"
 local event = require "event"
 local colors = require "UtillityFunctions.colors"
 local inputManager = require "inputManager"
+local collision = require "collision"
 
 local gameManager = {
     score = 0
@@ -34,6 +35,7 @@ function gameManager.update(dt)
     enemy.update(dt)
     weapon.update(dt)
     inputManager.update(dt)
+    collision.update()
 
       -- Game manager update logic
     
