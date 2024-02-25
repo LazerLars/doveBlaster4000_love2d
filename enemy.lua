@@ -5,7 +5,6 @@ local enemy = {}
 function enemy.load()
     -- Enemy initialization logic
     enemy.list = {}  -- List to store enemies
-
     -- enemy.clayDove = {
     --     x,
     --     y,

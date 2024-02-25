@@ -4,7 +4,7 @@ local weapon = {}
 --local shotgun = {}
 
 --local bulletList = {}
-local spr_bullet, spr_shellMagazine, spr_gunShell
+--local spr_bullet, spr_shellMagazine, spr_gunShell
 
 --we need maid64 to get the mouse position in the right scaled format 
 local maid64 = require "maid64"
@@ -18,14 +18,15 @@ function weapon.load()
     weapon.bulletList = {}
     -- shotgun = love.graphics.newImage('sprites/shotgun_8x8.png')
     -- bulletSpawnX = 
-    spr_bullet = love.graphics.newImage('sprites/bullets/bullet1_8x8.png')
-    spr_shellMagazine = love.graphics.newImage('sprites/shells/shell1.png')
-    spr_gunShell = love.graphics.newImage('sprites/shells/shell3_small.png')
     
-    weapon.shotgun = {
+    
+    weapon.gun = {
         spr_shotgun = love.graphics.newImage('sprites/guns/shotgun2_8x8.png'),
         bulletSpawnX = 0,
         bulletSpawnY = 0,
+        spr_bullet = love.graphics.newImage('sprites/bullets/bullet1_8x8.png'),
+        spr_shellMagazine = love.graphics.newImage('sprites/shells/shell1.png'),
+        spr_gunShell = love.graphics.newImage('sprites/shells/shell3_small.png'),
     }
 
 end
@@ -45,9 +46,9 @@ function weapon.draw()
     weapon.drawBullet()
     
     --draw shells
-    love.graphics.draw(spr_gunShell, 90, 102,0,1,1)
-    love.graphics.draw(spr_shellMagazine, 105, 102,0,2,2)
-    love.graphics.draw(spr_shellMagazine, 105, 110,0,2,2)
+    love.graphics.draw(weapon.gun.spr_gunShell, 90, 102,0,1,1)
+    love.graphics.draw(weapon.gun.spr_shellMagazine, 105, 102,0,2,2)
+    love.graphics.draw(weapon.gun.spr_shellMagazine, 105, 110,0,2,2)
     
 end
 
@@ -92,21 +93,21 @@ function weapon.pointGunToCursor(startPos)
     --if our sprite is normal placed
     if flip < 0 then
         barrelPointX = weaponX + rotatedBarrelOffsetX * -flip -- Adjust for flipping    
-        weapon.shotgun.bulletSpawnX = barrelPointX -4
-        weapon.shotgun.bulletSpawnY = barrelPointY +1
+        weapon.gun.bulletSpawnX = barrelPointX -4
+        weapon.gun.bulletSpawnY = barrelPointY +1
     --if our sprite is flipped vertically
     elseif flip > 0 then
         barrelPointX = weaponX + rotatedBarrelOffsetX * flip -- Adjust for flipping
-        weapon.shotgun.bulletSpawnX = barrelPointX -1
-        weapon.shotgun.bulletSpawnY = barrelPointY - 3
+        weapon.gun.bulletSpawnX = barrelPointX -1
+        weapon.gun.bulletSpawnY = barrelPointY - 3
     end
    
     -- Draw the sprite with appropriate flipping
-    love.graphics.draw(weapon.shotgun.spr_shotgun, weaponX, weaponY, math.rad(angleDegrees), 1, flip, 0, 0)
+    love.graphics.draw(weapon.gun.spr_shotgun, weaponX, weaponY, math.rad(angleDegrees), 1, flip, 0, 0)
 end
 
 function weapon.addBullet()
-    local spawnX, spawnY = weapon.shotgun.bulletSpawnX, weapon.shotgun.bulletSpawnY
+    local spawnX, spawnY = weapon.gun.bulletSpawnX, weapon.gun.bulletSpawnY
     local angleRadians = math.atan2(mouseY - spawnY, mouseX - spawnX)
     --local angleDegrees = math.floor(math.deg(angleRadians))
     local angleDegrees = math.deg(angleRadians)
@@ -157,7 +158,7 @@ end
 
 function weapon.drawBullet()
         for index, bullet in ipairs(weapon.bulletList) do
-            love.graphics.draw(spr_bullet,bullet.x, bullet.y)
+            love.graphics.draw(weapon.gun.spr_bullet,bullet.x, bullet.y)
         end    
 end
 
