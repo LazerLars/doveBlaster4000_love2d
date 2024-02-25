@@ -119,10 +119,7 @@ function weapon.addBullet()
 
     }
     table.insert(weapon.bulletList, bullet)
-    local sfx_shoot = love.audio.newSource('sfx/sfx_fire.mp3', 'stream')
-    love.audio.play(sfx_shoot)
-    sfx_shoot:play()
-    --print('adding bullet, new length: ' .. #bulletList)
+    weapon.playSfx_gunShot()
 end
 
 function weapon.removeBullet(index)
@@ -160,5 +157,10 @@ function weapon.setGunStartPosX(posX)
     weapon.specs.spawnPosX = posX
 end
 
+function weapon.playSfx_gunShot()
+    local sfx_shoot = love.audio.newSource('sfx/sfx_fire.mp3', 'stream')
+    love.audio.play(sfx_shoot)
+    sfx_shoot:play()
+end
 return weapon
 
