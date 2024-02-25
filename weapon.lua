@@ -12,7 +12,9 @@ local maid64 = require "maid64"
 function weapon.load()
     -- Weapon initialization logic
     --weapon.shotgun = {}
-    weapon.specs = {}
+    weapon.specs = {
+        spawnPosX = 64
+    }
     weapon.bulletList = {}
     -- shotgun = love.graphics.newImage('sprites/shotgun_8x8.png')
     -- bulletSpawnX = 
@@ -37,7 +39,7 @@ end
 function weapon.draw()
     --love.graphics.draw(shotgun, 90, 128-16)
     -- Weapon drawing logic
-    weapon.pointGunToCursor(77)
+    weapon.pointGunToCursor(weapon.specs.spawnPosX)
 
     --love.graphics.rectangle('fill', bullet.x, bullet.y, 4, 4)
     weapon.drawBullet()
@@ -54,7 +56,6 @@ function weapon.pointGunToCursor(startPos)
     local weaponX, weaponY = startPos, 128 - 8 -- Adjust these values based on your weapon's position
     --used for determine if we need to flip the gun vertically
     local flip
-
     -- Determine if the sprite should be flipped based on mouse position
     --flip = -1 will flip vertically
     if mouseX < startPos-1 then
@@ -62,8 +63,6 @@ function weapon.pointGunToCursor(startPos)
     else
         flip = 1
     end
-
-    
     -- Offset of the gun barrel from the weapon's position
     local barrelOffsetX, barrelOffsetY = 8, 2
 
@@ -101,31 +100,10 @@ function weapon.pointGunToCursor(startPos)
         weapon.shotgun.bulletSpawnX = barrelPointX -1
         weapon.shotgun.bulletSpawnY = barrelPointY - 3
     end
-    --------------------------------
-    --------------------------------
-
-    -- Print the current coordinates of the barrel
-    --love.graphics.print('bum: ' .. math.floor(barrelPointX) .. "," .. math.floor(barrelPointY) , 0, 17)
-    --love.graphics.print('Degrees: ' .. angleDegrees, 0, 9)
-
+   
     -- Draw the sprite with appropriate flipping
     love.graphics.draw(weapon.shotgun.spr_shotgun, weaponX, weaponY, math.rad(angleDegrees), 1, flip, 0, 0)
 end
-
--- function  love.keypressed(key)
---     if key == 'space' then
---         print('FIRE in the HOLE ' .. shotgun.bulletSpawnX .. "," .. shotgun.bulletSpawnY)
---         --bullet.x = shotgun.bulletSpawnX
---         --bullet.y = shotgun.bulletSpawnY
---         weapon.addBullet(shotgun.bulletSpawnX, shotgun.bulletSpawnY, 0)
---     end
---     if key == 'q' then
---         print('adding enemy...')
---         --bullet.x = shotgun.bulletSpawnX
---         --bullet.y = shotgun.bulletSpawnY
---         --enemy.create(math.random(10, 120), math.random(10, 90))
---     end
--- end
 
 function weapon.addBullet()
     local spawnX, spawnY = weapon.shotgun.bulletSpawnX, weapon.shotgun.bulletSpawnY
@@ -177,22 +155,9 @@ function weapon.removeBulletOutOfScreen(bullet, bulletIndex)
         end
 end
 
-
-
 function weapon.drawBullet()
-    --print(#weapon.bulletList)
-    -- for index, bullet in ipairs(bulletList) do
-    --     print(bullet.x)
-    -- end
-    --if #bulletList > 0 then
         for index, bullet in ipairs(weapon.bulletList) do
-            --print('bullet numb: ' .. index .. ' bullet xY: ' .. bullet.x .. ',' .. bullet.y)
-            --print(bullet.x)
-            --print(bullet.y)
-            --love.graphics.rectangle('fill', bullet.x, bullet.y, 4,4)
             love.graphics.draw(spr_bullet,bullet.x, bullet.y)
-            --love.graphics.draw(drawable,x,y,r,sx,sy,ox,oy)
-            
         end    
     --end
     
