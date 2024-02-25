@@ -162,5 +162,6 @@ function weapon.playSfx_gunShot()
     love.audio.play(sfx_shoot)
     sfx_shoot:play()
 end
+
 return weapon
 

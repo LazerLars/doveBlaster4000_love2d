@@ -18,6 +18,7 @@ function collision.checkForCollisionBulletAndEnemy()
              bullet.y + bullet.h > dove.y then -- Top edge of bullet is below the bottom edge of dove
               print('bulletIndex: ' .. bulletIndex .. 'collides with doveIndex: ' .. doveIndex)
               enemy.remove(doveIndex)
+              enemy.playSfx_enemyDead()
               weapon.removeBullet(bulletIndex)
               --increase score
               event.publish('increaseScore', 100)
