@@ -1,9 +1,9 @@
---soundPlayer.lua
+--inLoveSoundPlayer.lua
 
-local soundPlayer = {}
+local inLoveSoundPlayer = {}
 
 
-function soundPlayer.playSfx(filePath)
+function inLoveSoundPlayer.playSfx(filePath)
     local sound = love.audio.newSource(filePath, 'stream')
     love.audio.play(sound)
     sound:play()

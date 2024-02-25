@@ -49,7 +49,7 @@ function love.draw()
     --draw images here
     
     --can also draw shapes and get mouse position
-    --love.graphics.circle("fill", maid64.mouse.getX(),  maid64.mouse.getY(), 2)
+    --love.graphics.circle("fill", maid64.mouse.getX(),  maid64.mouse.getY(), 2)´
     love.graphics.draw(spr_crosshair,mouseX-2, mouseY-2)
     --draw x,y cordinates on scren, nice for dev.
     love.graphics.print(maid64.mouse.getX() .. ',' ..  maid64.mouse.getY(), screenWidth-(8*7),1)

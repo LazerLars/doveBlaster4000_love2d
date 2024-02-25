@@ -7,6 +7,7 @@ local event = require "event"
 local colors = require "UtillityFunctions.colors"
 local inputManager = require "inputManager"
 local collision = require "collision"
+local inLoveParticles = require "UtillityFunctions.inLoveParticles"
 
 local gameManager = {
     score = 0
@@ -18,6 +19,7 @@ function gameManager.load()
     enemy.load()
     weapon.load()
     inputManager.load()
+    inLoveParticles.load()
     --print(colors.ColorPalette_pico8Micro('green'))
     --colors.ColorPalette_pico8Micro('green')
     love.graphics.setBackgroundColor(0, 212/255, 59/255)
@@ -48,10 +50,13 @@ function gameManager.draw()
     enemy.draw()
     weapon.draw()
     inputManager.draw()
+    inLoveParticles.draw()
     
     colors.ColorPalette_pico8Micro('yellow')
     love.graphics.print(gameManager.score, 50,20)
     colors.ColorPalette_pico8Micro('white')
+
+
     -- Additional game manager drawing logic if needed
 end
 
