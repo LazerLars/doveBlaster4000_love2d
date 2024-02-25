@@ -39,6 +39,7 @@ function gameManager.update(dt)
     weapon.update(dt)
     inputManager.update(dt)
     collision.update()
+    inLoveParticles.update(dt)
 
       -- Game manager update logic
     
