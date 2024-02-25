@@ -1,14 +1,6 @@
 -- weapon.lua
 local weapon = {}
 
---local shotgun = {}
-
---local bulletList = {}
---local spr_bullet, spr_shellMagazine, spr_gunShell
-
---we need maid64 to get the mouse position in the right scaled format 
-local maid64 = require "maid64"
-
 function weapon.load()
     -- Weapon initialization logic
     --weapon.shotgun = {}
@@ -29,21 +21,15 @@ function weapon.load()
         
         spr_shellMagazine = love.graphics.newImage('sprites/shells/shell1.png'),
         spr_gunShell = love.graphics.newImage('sprites/shells/shell3_small.png'),
-
-        
-
     }
-
 end
 
 function weapon.update(dt)
-    -- Weapon update logic
-
+    -- Weapon update logi
     weapon.moveBullet(dt)
 end
 
 function weapon.draw()
-    --love.graphics.draw(shotgun, 90, 128-16)
     -- Weapon drawing logic
     weapon.pointGunToCursor(weapon.specs.spawnPosX)
 
@@ -133,7 +119,7 @@ function weapon.addBullet()
 
     }
     table.insert(weapon.bulletList, bullet)
-    sfx_shoot = love.audio.newSource('sfx/sfx_fire.mp3', 'stream')
+    local sfx_shoot = love.audio.newSource('sfx/sfx_fire.mp3', 'stream')
     love.audio.play(sfx_shoot)
     sfx_shoot:play()
     --print('adding bullet, new length: ' .. #bulletList)
