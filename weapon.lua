@@ -159,12 +159,11 @@ function weapon.drawBullet()
         for index, bullet in ipairs(weapon.bulletList) do
             love.graphics.draw(spr_bullet,bullet.x, bullet.y)
         end    
-    --end
-    
 end
 
-
-
+function weapon.setGunStartPosX(posX)
+    weapon.specs.spawnPosX = posX
+end
 
 return weapon
 
