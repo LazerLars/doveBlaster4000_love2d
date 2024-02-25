@@ -12,6 +12,7 @@ local maid64 = require "maid64"
 function weapon.load()
     -- Weapon initialization logic
     --weapon.shotgun = {}
+    weapon.specs = {}
     weapon.bulletList = {}
     -- shotgun = love.graphics.newImage('sprites/shotgun_8x8.png')
     -- bulletSpawnX = 
@@ -36,7 +37,7 @@ end
 function weapon.draw()
     --love.graphics.draw(shotgun, 90, 128-16)
     -- Weapon drawing logic
-    weapon.pointGunToCursor()
+    weapon.pointGunToCursor(77)
 
     --love.graphics.rectangle('fill', bullet.x, bullet.y, 4, 4)
     weapon.drawBullet()
@@ -48,15 +49,15 @@ function weapon.draw()
     
 end
 
-function weapon.pointGunToCursor()
+function weapon.pointGunToCursor(startPos)
     --placement of gun
-    local weaponX, weaponY = 64, 128 - 8 -- Adjust these values based on your weapon's position
+    local weaponX, weaponY = startPos, 128 - 8 -- Adjust these values based on your weapon's position
     --used for determine if we need to flip the gun vertically
     local flip
 
     -- Determine if the sprite should be flipped based on mouse position
     --flip = -1 will flip vertically
-    if mouseX < 63 then
+    if mouseX < startPos-1 then
         flip = -1
     else
         flip = 1
