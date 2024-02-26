@@ -5,7 +5,6 @@ local enemy = {}
 function enemy.load()
     -- Enemy initialization logic
     enemy.list = {}  -- List to store enemies
-
     -- enemy.clayDove = {
     --     x,
     --     y,
@@ -66,6 +65,12 @@ function enemy.draw()
         -- Enemy drawing logic
         love.graphics.draw(e.sprite, e.x, e.y)
     end
+end
+
+function enemy.playSfx_enemyDead()
+    local sfx_shoot = love.audio.newSource('sfx/sfx_pop.mp3', 'stream')
+    love.audio.play(sfx_shoot)
+    sfx_shoot:play()
 end
 
 

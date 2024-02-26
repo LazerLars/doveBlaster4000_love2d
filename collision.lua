@@ -5,6 +5,7 @@ local collision = {}
 local weapon = require "weapon"
 local enemy = require "enemy"
 local event = require "event"
+local particles = require "UtillityFunctions.inLoveParticles"
 
 function collision.checkForCollisionBulletAndEnemy()
 
@@ -16,9 +17,13 @@ function collision.checkForCollisionBulletAndEnemy()
              bullet.x + bullet.w > dove.x and -- Left edge of bullet is to the right of the left edge of dove
              bullet.y < dove.y + dove.h and -- Bottom edge of bullet is above the top edge of dove
              bullet.y + bullet.h > dove.y then -- Top edge of bullet is below the bottom edge of dove
-              print('bulletIndex: ' .. bulletIndex .. 'collides with doveIndex: ' .. doveIndex)
+              print('bulletIndex: ' .. bulletIndex .. 'collides with doveIndex: ' .. doveIndex)         
               enemy.remove(doveIndex)
+              enemy.playSfx_enemyDead()
               weapon.removeBullet(bulletIndex)
+              --make explosion effect
+              particles.createSimple(dove.x, dove.y, 'left')
+              particles.createSimple(dove.x, dove.y, 'right')
               --increase score
               event.publish('increaseScore', 100)
             end
