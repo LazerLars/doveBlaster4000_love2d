@@ -2,12 +2,14 @@
 
 local inLoveParticles = {}
 
+--TOOD: do effect like hoi amigo
+
 function inLoveParticles.load()
     inLoveParticles.list = {} -- list of particles
-    inLoveParticles.createSimple(50, 50, 'right')
-    inLoveParticles.createSimple(50, 50, 'left')
-    inLoveParticles.createSimple(55, 50, 'right')
-    inLoveParticles.createSimple(55, 50, 'left')
+    -- inLoveParticles.createSimple(50, 50, 'right')
+    -- inLoveParticles.createSimple(50, 50, 'left')
+    -- inLoveParticles.createSimple(55, 50, 'right')
+    -- inLoveParticles.createSimple(55, 50, 'left')
 end
 
 function inLoveParticles.update(dt)
