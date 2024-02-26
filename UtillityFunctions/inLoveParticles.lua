@@ -32,12 +32,13 @@ function inLoveParticles.createSimple(x, y)
 
 end
 
-function inLoveParticles.simpleDropMove(dt)
+function inLoveParticles.simpleDropMove(dt, direction)
     --todo: make particle go a little up, a little left and then drop...
     for particleIndex, particle in ipairs(inLoveParticles.list) do
         particle.duration = particle.duration - dt
-        
+        local direction = math.random(0,1)
         if particle.duration >= 0.3 then
+            
             particle.x = particle.x - math.random(40,100) * dt
             particle.y = particle.y - math.random(60,120) * dt
         else
