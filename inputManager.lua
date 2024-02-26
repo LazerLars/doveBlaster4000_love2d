@@ -2,6 +2,7 @@ local inputManager = {}
 
 local weapon = require "weapon"
 local enemy = require "enemy"
+local particles = require "UtillityFunctions.inLoveParticles"
 
 function inputManager.load()
 
@@ -34,6 +35,10 @@ function  love.keypressed(key)
         weapon.setGunStartPosX(x)
         print('pos: ' .. weapon.specs.spawnPosX)
         --weapon.startPos(math.random(25,105))
+    end
+    if key == 'a' then
+        particles.createSimple(50, 50, 'right')
+        particles.createSimple(50, 50, 'left')
     end
 end
 
