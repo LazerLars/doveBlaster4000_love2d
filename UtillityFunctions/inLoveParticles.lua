@@ -41,16 +41,16 @@ function inLoveParticles.simpleDropMove(dt)
         --decrease duration so we racha 0 at some point and can kill it
         particle.duration = particle.duration - dt
         --if we are above 0.3 secounds left we want the particle to move in a arch form
-        if particle.duration >= 0.3 then
+        if particle.duration >= 0.4 then
             --move the particle left
             if particle.direction == 'left' then
-                particle.x = particle.x - math.random(40,300) * dt
+                particle.x = particle.x - math.random(40,150) * dt
             --else move it right
             else
                 particle.x = particle.x + math.random(40,200) * dt
             end
             --make the particle go upwards
-            particle.y = particle.y - math.random(60,120) * dt
+            particle.y = particle.y - math.random(60,80) * dt
         --if we have less than 0.3 secounds left we want the particle to drop
         else
             --move the particle left
