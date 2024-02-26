@@ -5,6 +5,7 @@ local inLoveParticles = {}
 function inLoveParticles.load()
     inLoveParticles.list = {} -- list of particles
     inLoveParticles.createSimple(50, 50)
+    inLoveParticles.createSimple(25, 50)
 end
 
 function inLoveParticles.update(dt)
@@ -25,7 +26,7 @@ function inLoveParticles.createSimple(x, y)
     local newParticle = {
         x = x,
         y = y,
-        duration = 3
+        duration = 0.5
     }
     table.insert(inLoveParticles.list, newParticle)
 
@@ -34,8 +35,14 @@ end
 function inLoveParticles.simpleDropMove(dt)
     --todo: make particle go a little up, a little left and then drop...
     for particleIndex, particle in ipairs(inLoveParticles.list) do
-        particle.x = particle.x + 50 * dt
+        particle.x = particle.x + 2 * dt
         particle.y = particle.y + 100 * dt
+        particle.duration = particle.duration - dt
+        print(particle.duration)
+        if particle.duration <= 0 then
+            print('die particle')
+            inLoveParticles.removeParticle(particleIndex)
+        end
     end
 end
 
