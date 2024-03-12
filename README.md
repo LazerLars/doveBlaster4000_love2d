@@ -1,5 +1,5 @@
 # DOVE BLASTER 4000 #
-***In development***
+***---In development---***
   
 Shoot mother fuckings skeets in this trap shooter :) Made with Love2d
 
