@@ -5,7 +5,7 @@ local maid64 = require "maid64"
 local gameManager = require "gameManager"
 screenWidth = 128
 screenHeight = 128
-local scaleMuliplier = 5
+local scaleMuliplier = 6
 --mouse pos should be accecable in all files
 mouseX, mouseY = 0,0
 
@@ -13,7 +13,7 @@ local spr_crosshair
 
 
 function love.load()
-    
+    love.window.setTitle( 'doveBLASTER4000' )
     x = 0
     --optional settings for window
     love.window.setMode(screenWidth*scaleMuliplier, screenHeight*scaleMuliplier, {resizable=true, vsync=false, minwidth=200, minheight=200})
@@ -21,7 +21,7 @@ function love.load()
 
     --disable os mousecursor
     love.mouse.setVisible(false)
-    spr_crosshair = love.graphics.newImage('sprites/crosshair/crosshair8.png')
+    spr_crosshair = love.graphics.newImage('sprites/crosshair/crosshair5.png')
     --initilizing maid64 for use and set to 64x64 mode 
     --can take 2 parameters x and y if needed for example maid64.setup(64,32)
     maid64.setup(screenWidth, screenHeight)
@@ -52,7 +52,7 @@ function love.draw()
     --love.graphics.circle("fill", maid64.mouse.getX(),  maid64.mouse.getY(), 2)´
     love.graphics.draw(spr_crosshair,mouseX-2, mouseY-2)
     --draw x,y cordinates on scren, nice for dev.
-    love.graphics.print(maid64.mouse.getX() .. ',' ..  maid64.mouse.getY(), screenWidth-(8*7),1)
+    --love.graphics.print(maid64.mouse.getX() .. ',' ..  maid64.mouse.getY(), screenWidth-(8*7),1)
     gameManager.draw()
 
 

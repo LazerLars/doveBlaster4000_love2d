@@ -2,9 +2,15 @@
 
 local enemy = {}
 
+local weapon = require "weapon"
+
 function enemy.load()
     -- Enemy initialization logic
     enemy.list = {}  -- List to store enemies
+    enemy.doveCount = 0
+    enemy.spawnCounter = 0
+    enemy.switchSideDoveNumb = 5
+    enemy.roundCount = 0
     -- enemy.clayDove = {
     --     x,
     --     y,
@@ -12,17 +18,37 @@ function enemy.load()
     -- }
 end
 
-function enemy.create(x, y)
+function enemy.create(x, y, spawnRightSide)
     local newEnemy = {
         x = x,
         y = y,
+        --hard mode
         sprite = love.graphics.newImage('sprites/enemies/clayDove.png'),
+        --easy mode
+        -- sprite = love.graphics.newImage('sprites/enemies/clayDove7.png'),
+        --hard mode
         w = 5,
-        h = 3
+        h = 3,
+        --easy mode
+        -- w = 7,
+        -- h = 5,
+        spawnRightSide = spawnRightSide
         -- Additional enemy properties and initialization
     }
     table.insert(enemy.list, newEnemy)
+    enemy.doveCount = enemy.doveCount + 1
+    enemy.spawnCounter = enemy.spawnCounter + 1
     return newEnemy
+end
+
+-- spawn a clay dove on the left side of the screen
+function enemy.createEnemyOnLeft()
+    enemy.create(8, math.random(80,124), false)
+end
+
+--spawn a clay dove on the right side of the screen
+function enemy.createEnemyOnRight()
+    enemy.create(120, math.random(80,124), true)
 end
 
 function enemy.update(dt)
@@ -35,8 +61,16 @@ end
 
 function enemy.moveDove(dt, static)
     for doveIndex, dove in ipairs(enemy.list) do
-        local fallSpeed = 50
-        local moveSpeed = 100
+        local fallSpeed = math.random(-40,-120) -- between 40 & 120, -40  & -120,(- moves up, + moves down )
+        local moveSpeed = -100 -- (- moves left, + moves right)
+        if dove.spawnRightSide == true then
+            fallSpeed = math.random(-40,-120) -- between 40 & 120, -40  & -120,(- moves up, + moves down )
+            moveSpeed = math.random(-100,-200) -- -100 -- (- moves left, + moves right)
+        else
+            fallSpeed = math.random(-40,-120)
+            moveSpeed = math.random(100,200)
+        end
+        
         if static == true then
             fallSpeed = 0
             moveSpeed = 0
@@ -55,7 +89,6 @@ function enemy.removeDovesOutOfScreenOnXaxis(dove, doveIndex)
      if dove.x < 0 or dove.x > 128 then
         --table.remove(enemy.list, index)
         enemy.remove(doveIndex)
-        print('Removing clayDove exited screen. Doveindex: ' .. doveIndex)
     end
 end
 

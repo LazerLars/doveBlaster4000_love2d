@@ -16,8 +16,7 @@ function collision.checkForCollisionBulletAndEnemy()
              if bullet.x < dove.x + dove.w and -- Right edge of bullet is to the left of the right edge of dove
              bullet.x + bullet.w > dove.x and -- Left edge of bullet is to the right of the left edge of dove
              bullet.y < dove.y + dove.h and -- Bottom edge of bullet is above the top edge of dove
-             bullet.y + bullet.h > dove.y then -- Top edge of bullet is below the bottom edge of dove
-              print('bulletIndex: ' .. bulletIndex .. 'collides with doveIndex: ' .. doveIndex)         
+             bullet.y + bullet.h > dove.y then -- Top edge of bullet is below the bottom edge of dove      
               enemy.remove(doveIndex)
               enemy.playSfx_enemyDead()
               weapon.removeBullet(bulletIndex)
@@ -26,6 +25,7 @@ function collision.checkForCollisionBulletAndEnemy()
               particles.createSimple(dove.x, dove.y, 'right')
               --increase score
               event.publish('increaseScore', 100)
+              event.publish('screenShake')
             end
         end
     end

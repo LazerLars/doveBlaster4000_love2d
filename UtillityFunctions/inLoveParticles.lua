@@ -1,6 +1,7 @@
 --inLoveParticles.lua
 
 local inLoveParticles = {}
+local inLoveColors = require "UtillityFunctions.inLoveColors"
 
 --TOOD: do effect like hoi amigo
 
@@ -30,7 +31,7 @@ function inLoveParticles.createSimple(x, y, direction)
     local newParticle = {
         x = x,
         y = y,
-        duration = 0.5,
+        duration = 0.2,
         direction = direction --math.random() < 0.5 and 'left' or 'right'
     }
     table.insert(inLoveParticles.list, newParticle)
@@ -43,7 +44,7 @@ function inLoveParticles.simpleDropMove(dt)
         --decrease duration so we racha 0 at some point and can kill it
         particle.duration = particle.duration - dt
         --if we are above 0.3 secounds left we want the particle to move in a arch form
-        if particle.duration >= 0.4 then
+        if particle.duration >= 0.1 then
             --move the particle left
             if particle.direction == 'left' then
                 particle.x = particle.x - math.random(40,150) * dt
@@ -68,7 +69,6 @@ function inLoveParticles.simpleDropMove(dt)
 
         --if the duration is less than 0 we want to remove it
         if particle.duration <= 0 then
-            print('die particle')
             inLoveParticles.removeParticle(particleIndex)
         end
     end
@@ -77,7 +77,9 @@ end
 function inLoveParticles.drawParticles()
     --love.graphics.rectangle('fill', 50, 50, 1,1)
     for particleIndex, particle in ipairs(inLoveParticles.list) do
+        inLoveColors.ColorPalette_pico8Micro('pink')
         love.graphics.rectangle('fill', particle.x, particle.y, 2,2)
+        inLoveColors.ColorPalette_pico8Micro('white')
     end
 end
 
