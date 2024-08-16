@@ -120,7 +120,7 @@ function weapon.addBullet()
     local angleDegrees = math.deg(angleRadians)
     --print (angleDegrees)
     --lets add some recoil to the bullets
-    local random = math.random(-1, -4)
+    local random = math.random(-4, -1)
     angleDegrees = angleDegrees + random
     --angleRadians = math.rad(angleDegrees)
     local bullet = {
