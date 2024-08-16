@@ -61,13 +61,13 @@ end
 
 function enemy.moveDove(dt, static)
     for doveIndex, dove in ipairs(enemy.list) do
-        local fallSpeed = math.random(-40,-120) -- between 40 & 120, -40  & -120,(- moves up, + moves down )
+        local fallSpeed = math.random(-120,-40) -- between 40 & 120, -40  & -120,(- moves up, + moves down )
         local moveSpeed = -100 -- (- moves left, + moves right)
         if dove.spawnRightSide == true then
-            fallSpeed = math.random(-40,-120) -- between 40 & 120, -40  & -120,(- moves up, + moves down )
-            moveSpeed = math.random(-100,-200) -- -100 -- (- moves left, + moves right)
+            fallSpeed = math.random(-120,-40) -- between 40 & 120, -40  & -120,(- moves up, + moves down )
+            moveSpeed = math.random(-200,-100) -- -100 -- (- moves left, + moves right)
         else
-            fallSpeed = math.random(-40,-120)
+            fallSpeed = math.random(-120,-40)
             moveSpeed = math.random(100,200)
         end
         
